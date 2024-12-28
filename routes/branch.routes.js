@@ -35,11 +35,14 @@ router.get('/',(req,res)=>{
 router.post('/login',(req,res)=>{
     console.log(req.body);
     var principal = Branch.findOne({principalname:req.body.principalname,branchname:req.body.branchname})
+    
     .then((principal)=>{
-        console.log(res);
+        // console.log(principal)
+
+         console.log(res);
         var token = jwt.sign({...principal},"secretkey");
-        console.log(token);
-        res.json({ msg:"login success",token});
+         console.log(token);
+        res.json({ msg:"login success",token,principalname:principal.principalname});
     })
     .catch((err)=>{
         console.log(err);
